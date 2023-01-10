@@ -1,0 +1,20 @@
+[
+  {
+    "tag_name": "entity",
+    "ids_to_tags": {
+      "1": "B-appoint_date",
+      "2": "I-appoint_date",
+      "3": "L-appoint_date",
+      "4": "U-appoint_date",
+      "0": "O"
+    },
+    "tags_to_ids": {
+      "B-appoint_date": 1,
+      "I-appoint_date": 2,
+      "L-appoint_date": 3,
+      "U-appoint_date": 4,
+      "O": 0
+    },
+    "num_tags": 5
+  }
+]

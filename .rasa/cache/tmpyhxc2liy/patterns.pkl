@@ -1,0 +1,6 @@
+[
+  {
+    "name": "appoint_date",
+    "pattern": "\\d{2}/\\d{2}/\\d{4}"
+  }
+]

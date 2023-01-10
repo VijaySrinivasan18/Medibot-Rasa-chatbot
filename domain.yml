@@ -1,0 +1,126 @@
+version: "3.1"
+
+intents:
+  - greet
+  - goodbye
+  - affirm
+  - deny
+  - thanks
+  - mood_great
+  - mood_unhappy
+  - bot_challenge
+  - out_patient_consultation
+  - appointment_confirmation
+  - book_appointment
+  - medicine_enquiry
+  - timing
+  - appointment_date
+
+forms:
+  appointment_form:
+      required_slots:
+      - first_name
+      - last_name
+      - appointment_date
+  appointment_confirmation_form:
+      required_slots:
+      - required_appointment_no
+
+slots:
+  first_name:
+    type: text
+    influence_conversation: true
+    mappings:  
+      - type: from_text
+        conditions:
+         - active_loop: appointment_form
+           requested_slot: first_name 
+  last_name:
+    type: text
+    influence_conversation: true
+    mappings:
+      - type: from_text
+        conditions:
+         - active_loop: appointment_form
+           requested_slot: last_name
+      
+  appointment_date:
+    type: text
+    influence_conversation: true
+    mappings:
+      - type: from_text
+        conditions:
+         - active_loop: appointment_form
+           requested_slot: appointment_date
+
+  required_appointment_no:
+    type: text
+    influence_conversation: true
+    mappings:
+      - type: from_text
+        conditions:
+         - active_loop: appointment_confirmation_form
+           requested_slot: required_appointment_no
+
+responses:
+  utter_greet:
+  - text: "Hey! How are you?"
+
+  utter_cheer_up:
+  - text: "I am sorry about it. Please do not worry, we will do our best to assist you. How may I assist you?"
+    # image: "https://i.imgur.com/nGF1K8f.jpg"
+
+  # utter_did_that_help:
+  # - text: "Did that help you?"
+
+  utter_happy:
+  - text: "Great, carry on!"
+
+  utter_reply_thank:
+  - text: "Happy to help!"
+
+  utter_goodbye:
+  - text: "Bye"
+
+  utter_iamabot:
+  - text: "My name is MediBot. I am a bot, powered by Rasa."
+
+  utter_op_enquiry:
+  - text: "Out Patients will be attended between 9AM-3PM on all days and charge for a visit would range from 300-500 bucks depending the complaint"
+  
+  utter_timing_info:
+  - text: "You can visit us anytime. We work 24/7"
+
+  utter_ask_first_name:
+  - text: "Enter the first name of patient"
+
+  utter_ask_last_name:
+  - text: "Enter the last name of patient"
+
+  utter_ask_appointment_date:
+  - text: "Please enter the date on which you wanted appointment in yyyy/mm/dd format"
+
+  utter_ask_required_appointment_no:
+  - text: we can assist you to confirm your appointment. Could you please provide your appointment number that starts with 'med-' "
+
+actions: 
+  - action_medicine_info
+  - action_appointment_booking
+  - action_appointment_confirmation
+  - validate_appointment_form
+  - validate_appointment_confirmation_form
+
+
+entities:
+  - appoint_date
+
+
+
+    
+    
+
+session_config:
+  session_expiration_time: 60
+  carry_over_slots_to_new_session: true
+
+

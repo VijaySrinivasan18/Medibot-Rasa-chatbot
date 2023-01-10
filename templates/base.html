@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Medi-Bot</title>
+</head>
+<body>
+<div class="container">
+    <div id="temp_disp"></div>
+    <div class="chatbox">
+        <div class="chatbox__support">
+            <div class="chatbox__header">
+                <div class="chatbox__image--header">
+                    <img src="{{url_for('static',filename='images/chat_bot.jpg')}}" alt="image" width="48px" height="48px">
+                </div>
+                <div class="chatbox__content--header">
+                    <h4 class="chatbox__heading--header">Medi support</h4>
+                    <p class="chatbox__description--header">Hi. My name is Medi Bot. How can I help you?</p>
+                </div>
+            </div>
+            <div class="chatbox__messages">
+                <div></div>
+            </div>
+            <div class="chatbox__footer">
+                <input type="text" placeholder="Write a message...">
+                <button class="chatbox__send--footer send__button" >Send</button>
+            </div>
+            <div class="chatbox__footer">
+                <!-- <form action = "{{url_for('img_upload')}}" method = "POST" 
+                enctype = "multipart/form-data"> -->
+                <input type = "file"  id="img_input" name = "file" class="upload_option" />
+                <button class="chatbox__send--footer  upload__button" value="upload"  > upload </button>
+                <!-- </form> -->
+            </div>
+            
+        </div>
+        <div class="chatbox__button">
+            <!-- images/chatbox-icon.svg -->
+            <button><img src="{{ url_for('static', filename='images/chatbox-icon.svg') }}" /></button>
+        </div>
+    </div>
+</div>
+
+    <script>
+        $SCRIPT_ROOT = {{ request.script_root|tojson }};
+    </script>
+    <script type="text/javascript" src="{{ url_for('static', filename='app.js') }}"></script>
+
+</body>
+</html>

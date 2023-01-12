@@ -21,6 +21,7 @@ import pyodbc
 from rasa_sdk.types import DomainDict
 from  datetime import date
 import regex
+import os
 
 def update_appointment_details(first_name,last_name,appointment_date):
     ''' 
@@ -82,7 +83,7 @@ def get_appointment_status(appointment_no):
 def remove_stopwords(list_words):
     return [x for x in list_words if x not in stopwords.words("english")]
 
-def get_medicine_info(sentence):
+def get_medicine_info(sentence=None,entity_word=None):
     s= open("artifacts/medicine_database.pickle","ab+")
     s.seek(0)
     try:
@@ -98,13 +99,22 @@ def get_medicine_info(sentence):
 
     links={}
     medicine_name=[]
-    for medicine in remove_stopwords(sentence.split(" ")):
-        for link in [x for x in search(medicine,num=10,stop=10)]:
-            print("Links:",link)
+    if sentence is not None:    
+        for medicine in remove_stopwords(sentence.split(" ")):
+            for link in [x for x in search(medicine,num=10,stop=10)]:
+                # print("Links:",link)
+                for key_word in ["www.apollopharmacy.in","www.netmeds.com"]:
+                    if key_word in link:
+                        links[key_word]=link
+                        medicine_name.append(medicine.lower())
+
+    if entity_word is not None:
+        for link in [x for x in search(entity_word,num=10,stop=10)]:
             for key_word in ["www.apollopharmacy.in","www.netmeds.com"]:
                 if key_word in link:
                     links[key_word]=link
-                    medicine_name.append(medicine.lower())
+                    medicine_name.append(entity_word.lower())
+
 
     if len(links.keys())==0:
         print("Nothing found: ",links)
@@ -120,7 +130,7 @@ def get_medicine_info(sentence):
 
 
     if "www.apollopharmacy.in" in list(links.keys()): 
-        print("Found apollo link")
+        # print("Found apollo link")
         response=requests.get(links["www.apollopharmacy.in"])
         bs4_obj=bs4.BeautifulSoup(response.content,"lxml")
         Composition=bs4_obj.select(" a>p ")[6].text
@@ -164,10 +174,18 @@ class ActionMedicineEnquiry(Action):
     def run(self, dispatcher: CollectingDispatcher,
             tracker: Tracker,
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
-            
+
+        print("raw message",tracker.latest_message)
         my_text=tracker.latest_message["text"]
-        # print("Entity received:",tracker.latest_message["entities"])
-        output=get_medicine_info(my_text)
+        entity_text=tracker.latest_message["entities"]
+        print("Entity received", entity_text)
+
+        if len(entity_text)!=0:
+            print("Received entity:",entity_text[0]["value"])
+            output=get_medicine_info(entity_word=entity_text[0]["value"])
+        else:
+            print("No entity received, using text")
+            output=get_medicine_info(my_text)
 
         dispatcher.utter_message(output)
 
@@ -204,11 +222,15 @@ class ActionAppointmentConfirmation(Action):
     def run(self, dispatcher: CollectingDispatcher,
             tracker: Tracker,
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
-            
-        required_appointment_no=tracker.get_slot("required_appointment_no") 
-        output=get_appointment_status(required_appointment_no)
+        
+        if len(tracker.latest_message["entities"])!=0:
+            required_appointment_no=tracker.latest_message["entities"][0]["value"]
+            print("Received entity:",required_appointment_no)
+            output=get_appointment_status(required_appointment_no)
+            dispatcher.utter_message(output)
 
-        dispatcher.utter_message(output)
+        else:
+            dispatcher.utter_message("No Appointment number found in your message,Could you please provide the Appointment number starting wit med- ")
 
         return []
 

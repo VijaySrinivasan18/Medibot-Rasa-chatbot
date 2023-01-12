@@ -5,7 +5,6 @@ import  PIL.Image as Image
 import io
 import base64
 import requests
-# from chat import get_response
 
 
 

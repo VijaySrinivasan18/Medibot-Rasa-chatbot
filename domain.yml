@@ -6,6 +6,7 @@ intents:
 - book_appointment
 - bot_challenge
 - deny
+- doctor_availability
 - goodbye
 - greet
 - medicine_enquiry:
@@ -75,6 +76,7 @@ responses:
 actions:
 - action_appointment_booking
 - action_appointment_confirmation
+- action_doctor_availability
 - action_medicine_info
 - utter_cheer_up
 - utter_greet
@@ -85,6 +87,7 @@ actions:
 entities:
 - medicine_name
 - appoint_no
+- PERSON
 session_config:
   session_expiration_time: 60
   carry_over_slots_to_new_session: true

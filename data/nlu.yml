@@ -1,0 +1,178 @@
+version: "3.1"
+nlu:
+- intent: greet
+  examples: |
+    - hey
+    - hello
+    - hi
+    - hello there
+    - good morning
+    - good evening
+    - moin
+    - hey there
+    - let's go
+    - hey dude
+    - goodmorning
+    - goodevening
+    - good afternoon
+    - Is anyone there?
+    - whats up
+    - Hello
+- intent: goodbye
+  examples: |
+    - cu
+    - good by
+    - cee you later
+    - good night
+    - bye
+    - goodbye
+    - have a nice day
+    - see you around
+    - bye bye
+    - see you later
+- intent: affirm
+  examples: |
+    - yes
+    - y
+    - indeed
+    - of course
+    - that sounds good
+    - I this it is correct
+    - P
+- intent: deny
+  examples: |
+    - no
+    - n
+    - never
+    - I don't think so
+    - don't like that
+    - no way
+    - not really
+    - Do not do it
+- intent: mood_great
+  examples: |
+    - perfect
+    - great
+    - amazing
+    - feeling like a king
+    - wonderful
+    - I am feeling very good
+    - I am great
+    - I am amazing
+    - I am going to save the world
+    - super stoked
+    - extremely good
+    - so so perfect
+    - so good
+    - so perfect
+    - I am good
+    - I  am good
+- intent: mood_unhappy
+  examples: |
+    - my day was horrible
+    - I am sad
+    - I don't feel very well
+    - I feel disappointment
+    - I am disappointed
+    - I'm so sad
+    - I feelsad
+    - very sad
+    - unhappy
+    - not good
+    - not very good
+    - extremly sad
+    - so saad
+    - so sad
+    - I feel sad
+- intent: thanks
+  examples: |
+    - Thanks
+    - Thank you
+    - That's helpful
+    - Thank's a lot!
+    - Thank you so much
+    - thank you
+- intent: bot_challenge
+  examples: |
+    - are you a bot?
+    - are you a human?
+    - am I talking to a bot?
+    - am I talking to a human?
+    - whats is your name?
+    - what should I call you?
+    - How can I address you?
+    - what's your name?
+    - How people call you?
+- intent: out_patient_consultation
+  examples: |
+    - What is the outpatient consulation time
+    - what is the charge for out patient consultation?
+    - When will the doctors attend out patients?
+    - At what time does doctors attend OP?
+    - what is the charge for op consultation
+- intent: appointment_confirmation
+  examples: |
+    - I wanted to confirm my appointment for appointment number [med-1](appoint_no)
+    - We need to visit doctor today? Can you verify appointment under [med-2](appoint_no)?
+    - Could you please verify my appointment for appointment number [med-3](appoint_no)?
+    - I wanted to make sure that doctor will be available for appointment number [med-2](appoint_no)
+    - I already have an appointment with appointment  number [med-1](appoint_no), Is it confirmed?
+    - Could you please confirm the status of appointment number [med-1](appoint_no)
+    - I wanted to verify my appointment for appointment number [med-2](appoint_no)
+    - Could you check the status of appointment number [med-1](appoint_no)?
+
+- intent: book_appointment
+  examples: |
+    - I wanted to book an appointment
+    - I need to make an appointment
+    - I need to see the doctor.
+    - when will the doctor be available
+    - I wanted to take an appointment
+    - Could you please book appointment for me?
+    - My boss wanted an appointment from Doctor
+    - Help me book an appointment
+    - Will you book appointment for me?
+    - I wanted to book an appointment for my son
+- intent: medicine_enquiry
+  examples: |
+    - I wanted to know about a [Saridon](medicine_name) tablet?
+    - For what [dolo650](medicine_name)  tablet is used?
+    - Help me understand the side effects and usage of [gelusil](medicine_name) drug?
+    - Uses of [combiflame](medicine_name) syrup
+    - Dosage instructions for [Saridon](medicine_name)?
+    - May I know the usage of [Saridon](medicine_name) drug?
+    - May I know the side effects of [Saridon](medicine_name) drug?
+    - I need to understand the side effects of [Crocin](medicine_name) tablet
+    - Would you help me understand about [combiflame](medicine_name)
+    - Dosage information of [Saridon](medicine_name)
+    - Interested in understanding effect of [Combiflame](medicine_name)
+    - I need to understand the dosage information of of [Crocinl](medicine_name) tablet
+    - Let me know about side effects of [Crocin](medicine_name)
+    - May I know uses of [coldact](medicine_name) capsule
+    - Side effects of [combiflame](medicine_name) has to be known
+    - Need to understand the uses and side effect of [Crocin](medicine_name)
+    - Could you provide the usage of [saridon](medicine_name) tablet
+    - Could you provide the dosage information about [saridon](medicine_name) tablet
+    - What are the usage and side effects of [Augmentin-625](medicine_name) tablet?
+    - Help me understand the dosage information of [Crocin](medicine_name) drug?
+    - Let me know the dosage information of [Erithromycin](medicine_name) medicne
+- intent: timing
+  examples: |
+    - How long will you guys be open?
+    - At what time you guys close?
+    - What is the visiting time
+    - Till what time you guys will be open?
+- intent: doctor_availability
+  examples: |
+    - Will Mr.Ram be available today?
+    - Is Dr.Kishore visiting the hospital today?
+    - I would like to consult doctor Arun?
+    - Need to consult doctor named Sneha?
+    - Will Mr.Srinivasan be available on wednesday day?
+    - Need to know the availability of Dr.Sneha
+    - Is Dr.Venkatesh available on the given day
+    - Is  Dr.Muthu available
+    - Is doctor Alvin available today?
+- regex: appoint_no
+  examples: |
+    - med-\d{1,100}

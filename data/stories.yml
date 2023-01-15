@@ -1,0 +1,215 @@
+version: "3.1"
+
+stories:
+
+- story: happy path
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: mood_great
+  - action: utter_happy
+  - intent: timing
+  - action: utter_timing_info
+  - intent: thanks
+  - action: utter_reply_thank
+
+
+- story: sad path 1
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: mood_unhappy
+  - action: utter_cheer_up
+  - intent: affirm
+  - action: utter_happy
+
+- story: sad path 2
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: mood_unhappy
+  - action: utter_cheer_up
+  - intent: deny
+  - action: utter_goodbye
+
+
+
+- story: op_enquiry
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: out_patient_consultation
+  - action: utter_op_enquiry
+  - intent: thanks
+  - action: utter_reply_thank
+
+- story: appointment_booking_happy
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: mood_great
+  - action: utter_happy
+  - intent: book_appointment
+  - action: appointment_form
+  - active_loop: appointment_form
+  - slot_was_set:
+    - requested_slot: first_name
+  - slot_was_set:
+    - first_name: Vijay
+  - slot_was_set:
+    - requested_slot: last_name
+  - slot_was_set:
+    - last_name: Srinivasan
+  - slot_was_set:
+    - requested_slot: appointment_date
+  - slot_was_set:
+    - appointment_date: 18/11/2022
+  - slot_was_set:
+    - requested_slot: null
+  - active_loop: null
+  - action: action_appointment_booking
+  - intent: thanks
+  - action: utter_reply_thank
+
+
+- story: appointment_booking_unhappy
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: mood_unhappy
+  - action: utter_cheer_up
+  - intent: book_appointment
+  - action: appointment_form
+  - active_loop: appointment_form
+  - slot_was_set:
+    - requested_slot: first_name
+  - slot_was_set:
+    - first_name: Vijay
+  - slot_was_set:
+    - requested_slot: last_name
+  - slot_was_set:
+    - last_name: Srinivasan
+  - slot_was_set:
+    - requested_slot: appointment_date
+  - slot_was_set:
+    - appointment_date: 2022/11/18
+  - slot_was_set:
+    - requested_slot: null
+  - active_loop: null
+  - action: action_appointment_booking
+  - intent: thanks
+  - action: utter_reply_thank
+
+
+
+- story: appointment_confirmation_happy
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: mood_great
+  - action: utter_happy
+  - intent: appointment_confirmation
+    entities:
+    - appoint_no: med-03 
+  - action: action_appointment_confirmation
+  - intent: thanks
+  - action: utter_reply_thank
+
+- story: appointment_confirmation_unhappy
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: mood_unhappy
+  - action: utter_cheer_up
+  - intent: appointment_confirmation
+    entities:
+    - appoint_no: med-05
+  - action: action_appointment_confirmation
+  - intent: thanks
+  - action: utter_reply_thank
+
+- story: medical_enquiry_1
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: mood_great
+  - action: utter_happy
+  - intent: medicine_enquiry
+  - action: action_medicine_info
+  - intent: medicine_enquiry
+  - action: action_medicine_info
+  - intent: thanks
+  - action: utter_reply_thank
+
+- story: doctor_availability
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: mood_great
+  - action: utter_happy
+  - intent: doctor_availability
+    entities:
+    - PERSON: Gill
+  - action: action_doctor_availability
+  - intent: thanks
+  - action: utter_reply_thank
+
+
+- story: medical_enquiry_2
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: mood_great
+  - action: utter_happy
+  - intent: medicine_enquiry
+    entities:
+    - medicine_name: Augmentin-625
+  - action: action_medicine_info
+  - intent: medicine_enquiry
+    entities:
+    - medicine_name: Erithromycin
+  - action: action_medicine_info
+  - intent: thanks
+  - action: utter_reply_thank
+
+- story: appointment_booking_story_2
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: book_appointment
+  - action: appointment_form
+  - active_loop: appointment_form
+  - slot_was_set:
+    - requested_slot: first_name
+  - slot_was_set:
+    - first_name: Srinivasan
+  - slot_was_set:
+    - first_name: Srinivasan
+  - slot_was_set:
+    - requested_slot: last_name
+  - slot_was_set:
+    - last_name: P
+  - slot_was_set:
+    - last_name: P
+  - slot_was_set:
+    - requested_slot: appointment_date
+  - slot_was_set:
+    - appointment_date: 2023/01/13
+  - slot_was_set:
+    - appointment_date: 2023/01/13
+  - slot_was_set:
+    - requested_slot: null
+  - active_loop: null
+  - action: action_appointment_booking
+
+
+- story: interactive_story_1
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: mood_great
+  - action: utter_happy
+  - intent: doctor_availability
+  - action: action_doctor_availability
+  - intent: thanks
+  - action: utter_reply_thank

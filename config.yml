@@ -10,6 +10,7 @@ pipeline:
 # No configuration for the NLU pipeline was provided. The following default pipeline was used to train your model.
 # If you'd like to customize it, uncomment and adjust the pipeline.
 # See https://rasa.com/docs/rasa/tuning-your-model for more information.
+  - name: medicineentity.MedicineEntityRecognizer
   - name: SpacyNLP
     model: "en_core_web_md"
   - name: SpacyTokenizer
@@ -18,14 +19,12 @@ pipeline:
   - name: SpacyFeaturizer
     pooling: mean
   - name: RegexFeaturizer
-  - name: RegexEntityExtractor
   - name: LexicalSyntacticFeaturizer
   - name: CountVectorsFeaturizer
   - name: CountVectorsFeaturizer
     analyzer: char_wb
     min_ngram: 1
-    max_ngram: 4
-  # - name: CRFEntityExtractor    
+    max_ngram: 4  
   - name: DIETClassifier
     epochs: 350
     constrain_similarities: true
